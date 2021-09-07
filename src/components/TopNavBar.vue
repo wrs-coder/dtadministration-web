@@ -41,5 +41,6 @@ export default {
 
 .ExitButton {
   float: right;
+  margin: 15px;
 }
 </style>

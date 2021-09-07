@@ -1,15 +1,12 @@
 <template>
   <el-container>
     <el-header>
-      <el-button size="mini" type="button" icon="el-icon-plus" @click="AdddialogVisible = true" circle>
-      </el-button>
+      <el-button size="mini" type="button" icon="el-icon-plus" @click="AdddialogVisible = true" circle/>
     </el-header>
     <el-table :data="tableData" height="250" style="width: 100%">
       <el-table-column fixed prop="name" label="姓名" width="90" align="center"/>
       <el-table-column prop="sno" label="学号" width="100" align="center"/>
       <el-table-column prop="org_name" label="支部名称" width="140" align="center"/>
-      <el-table-column prop="college" label="学院" width="130" align="center"/>
-      <el-table-column prop="grade" label="年级" width="100" align="center"/>
       <el-table-column prop="sex" label="性别" width="50" align="center"/>
       <el-table-column prop="nation" label="民族" width="80" align="center"/>
       <el-table-column prop="birthday" label="出生日期" width="100" align="center"/>
@@ -118,6 +115,7 @@ export default {
   },
   data () {
     return {
+      search: '',
       AdddialogVisible: false,
       EditdialogVisible: false,
       form: {
