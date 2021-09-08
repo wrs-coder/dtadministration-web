@@ -3,9 +3,8 @@ import VueRouter from 'vue-router'
 import Login from '../views/Login'
 import HelloPage from '../views/HelloPage'
 import Home from '../views/Home'
-import JJFZ from '../views/DT-jjfz'
-import YBDY from '../views/DT-ybdy'
-import DY from '../views/DT-dy'
+import People from '../views/DT-people'
+import Activity from '../views/DT-activity'
 
 Vue.use(VueRouter)
 
@@ -26,19 +25,14 @@ const routes = [
         component: HelloPage
       },
       {
-        path: '/JJFZ',
-        name: 'JJFZ',
-        component: JJFZ
+        path: '/People',
+        name: 'People',
+        component: People
       },
       {
-        path: '/YBDY',
-        name: 'YBDY',
-        component: YBDY
-      },
-      {
-        path: '/DY',
-        name: 'DY',
-        component: DY
+        path: '/Activity',
+        name: 'Activity',
+        component: Activity
       }
     ]
   }

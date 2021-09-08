@@ -48,7 +48,7 @@ export default {
   },
   methods: {
     login () {
-      this.$http('post', '/student/login', {
+      this.$http('post', '/api/login', {
         form: this.form
       }).then(response => {
         if (Object.keys(response).length !== 0) {

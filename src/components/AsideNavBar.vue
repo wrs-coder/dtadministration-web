@@ -20,16 +20,12 @@ export default {
           path: '/HelloPage'
         },
         {
-          name: '入党积极分子管理',
-          path: '/JJFZ'
+          name: '人员管理',
+          path: '/People'
         },
         {
-          name: '预备党员管理',
-          path: '/YBDY'
-        },
-        {
-          name: '党员管理',
-          path: '/DY'
+          name: '活动管理',
+          path: '/Activity'
         }]
     }
   }

@@ -15,8 +15,11 @@
       <el-table-column prop="address" label="住址" width="210" align="center"/>
       <el-table-column prop="telephone" label="联系电话" width="110" align="center"/>
       <el-table-column prop="workplace" label="工作单位及职务" width="150" align="center"/>
+      <el-table-column prop="type" label="类别" width="150" align="center"/>
       <el-table-column prop="sqrd_time" label="申请入党时间" width="140" align="center"/>
       <el-table-column prop="jjfz_time" label="确认为入党积极分子时间" width="180" align="center"/>
+      <el-table-column prop="fzdx_time" label="列为发展对象时间" width="180" align="center"/>
+      <el-table-column prop="rd_time" label="入党时间" width="180" align="center"/>
       <el-table-column label="操作" width="100" align="center">
         <template slot-scope="scope">
           <el-button size="mini" type="danger" icon="el-icon-delete" @click="handleDelete(scope.$index, scope.row)"
@@ -31,52 +34,52 @@
     <el-dialog title="新增学生信息" :visible.sync="AdddialogVisible" width="70%">
       <el-form :rules="rules" ref="form" :model="form" label-width="80px">
         <el-form-item label="学号" prop="sno">
-          <el-input v-model="form.sno"></el-input>
+          <el-input v-model="form.sno"/>
         </el-form-item>
         <el-form-item label="支部名称" prop="org_name">
-          <el-input v-model="form.org_name"></el-input>
+          <el-input v-model="form.org_name"/>
         </el-form-item>
         <el-form-item label="支部书记" prop="org_present">
-          <el-input v-model="form.org_present"></el-input>
+          <el-input v-model="form.org_present"/>
         </el-form-item>
         <el-form-item label="学院" prop="college">
-          <el-input v-model="form.college"></el-input>
+          <el-input v-model="form.college"/>
         </el-form-item>
         <el-form-item label="年级" prop="grade">
-          <el-input v-model="form.grade"></el-input>
+          <el-input v-model="form.grade"/>
         </el-form-item>
         <el-form-item label="姓名" prop="name">
-          <el-input v-model="form.name"></el-input>
+          <el-input v-model="form.name"/>
         </el-form-item>
         <el-form-item label="性别" prop="sex">
-          <el-input v-model="form.sex"></el-input>
+          <el-input v-model="form.sex"/>
         </el-form-item>
         <el-form-item label="民族" prop="nation">
-          <el-input v-model="form.nation"></el-input>
+          <el-input v-model="form.nation"/>
         </el-form-item>
         <el-form-item label="出生日期" prop="birthday">
-          <el-input v-model="form.birthday"></el-input>
+          <el-input v-model="form.birthday"/>
         </el-form-item>
         <el-form-item label="身份证号码" prop="card">
-          <el-input v-model="form.card"></el-input>
+          <el-input v-model="form.card"/>
         </el-form-item>
         <el-form-item label="籍贯" prop="nativtion">
-          <el-input v-model="form.nativtion"></el-input>
+          <el-input v-model="form.nativtion"/>
         </el-form-item>
         <el-form-item label="住址" prop="address">
-          <el-input v-model="form.address"></el-input>
+          <el-input v-model="form.address"/>
         </el-form-item>
         <el-form-item label="联系电话" prop="telephone">
-          <el-input v-model="form.telephone"></el-input>
+          <el-input v-model="form.telephone"/>
         </el-form-item>
         <el-form-item label="工作地址及职务" prop="workplace">
-          <el-input v-model="form.workplace"></el-input>
+          <el-input v-model="form.workplace"/>
         </el-form-item>
         <el-form-item label="申请入党时间" prop="sqrd_time">
-          <el-input v-model="form.sqrd_time"></el-input>
+          <el-input v-model="form.sqrd_time"/>
         </el-form-item>
         <el-form-item label="确认为积极分子时间" prop="jjfz_time">
-          <el-input v-model="form.jjfz_time"></el-input>
+          <el-input v-model="form.jjfz_time"/>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -107,9 +110,9 @@
 
 <script>
 export default {
-  name: 'DT-jjfz',
+  name: 'DT-people',
   mounted: function () {
-    this.$http('get', '/student/query', localStorage.getItem('Authorization')).then(response => {
+    this.$http('post', '/api/query', { tableName: 'DT_people' }).then(response => {
       this.tableData = response
     })
   },
@@ -133,8 +136,11 @@ export default {
         address: '',
         telephone: '',
         workplace: '',
+        type: '',
         sqrd_time: '',
-        jjfz_time: ''
+        jjfz_time: '',
+        fzdx_time: '',
+        rd_time: ''
       },
       tableData: null,
       rules: {
@@ -183,7 +189,7 @@ export default {
   methods: {
     // 新增
     addStudent () {
-      this.$http('post', '/student/insert', this.form)
+      this.$http('post', '/api/insert', this.form)
       location.reload()
     },
     // 删除
@@ -193,7 +199,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.$http('post', '/student/delete', { sno: row.sno }).then(response => {
+        this.$http('post', '/api/delete', { sno: row.sno }).then(response => {
           this.tableData.splice(index, 1)
           if (response !== null) {
             this.$message({
@@ -216,13 +222,13 @@ export default {
     },
     // 修改前查询学生信息
     handleEdit (index, row) {
-      this.$http('post', '/student/Studentquery', { sno: row.sno }).then(response => {
+      this.$http('post', '/api/Studentquery', { sno: row.sno }).then(response => {
         this.form = response[0]
       })
     },
     // 提交
     editStudent () {
-      this.$http('post', '/student/update', this.form).then(response => {
+      this.$http('post', '/api/update', this.form).then(response => {
         location.reload()
       })
     }
