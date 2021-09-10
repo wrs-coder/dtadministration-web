@@ -161,7 +161,7 @@ export default {
           name: row.name,
           tableName: 'DT_activity'
         }
-        this.$http('post', 'api/Studentquery', { queryList: queryList }).then(response => {
+        this.$http('post', 'api/StudentQuery', { queryList: queryList }).then(response => {
           const deleteList = {
             uuid: response[0].uuid,
             tableName: 'DT_activity'
@@ -194,7 +194,7 @@ export default {
         name: row.name,
         tableName: 'DT_activity'
       }
-      this.$http('post', '/api/Studentquery', { queryList: queryList }).then(response => {
+      this.$http('post', '/api/StudentQuery', { queryList: queryList }).then(response => {
         this.form = response[0]
       })
     },
