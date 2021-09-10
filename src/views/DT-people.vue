@@ -35,12 +35,12 @@
       <el-form :rules="rules" ref="form" :model="form" label-width="190px">
         <el-row>
           <el-col span="10">
-            <el-form-item label="学号">
+            <el-form-item label="学号" prop="uuid">
               <el-input v-model="form.uuid"/>
             </el-form-item>
           </el-col>
           <el-col span="10">
-            <el-form-item label="支部名称">
+            <el-form-item label="支部名称" prop="org_name">
               <el-select v-model="form.org_name" placeholder="请选择所在支部名称" style="width: 100%;">
                 <el-option label="本科生第一党支部" value="本科生第一党支部"/>
                 <el-option label="本科生第二党支部" value="本科生第二党支部"/>
@@ -52,21 +52,21 @@
         </el-row>
         <el-row>
           <el-col span="10">
-            <el-form-item label="支部书记">
+            <el-form-item label="支部书记" prop="org_present">
               <el-select v-model="form.org_present" placeholder="请选择支部书记" style="width: 100%;">
                 <el-option label="杨莉" value="杨莉"/>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col span="10">
-            <el-form-item label="姓名">
+            <el-form-item label="姓名" prop="name">
               <el-input v-model="form.name"/>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col span="10">
-            <el-form-item label="性别">
+            <el-form-item label="性别" prop="sex">
               <el-select v-model="form.sex" placeholder="请选择性别" style="width: 100%;">
                 <el-option label="男" value="男"/>
                 <el-option label="女" value="女"/>
@@ -74,44 +74,44 @@
             </el-form-item>
           </el-col>
           <el-col span="10">
-            <el-form-item label="民族">
+            <el-form-item label="民族" prop="nation">
               <el-input v-model="form.nation"/>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col span="10">
-            <el-form-item label="出生日期">
+            <el-form-item label="出生日期" prop="birthday">
               <el-date-picker type="date" value-format="yyyy-MM-dd" placeholder="请选择日期" v-model="form.birthday"
                               style="width: 100%;"></el-date-picker>
             </el-form-item>
           </el-col>
           <el-col span="10">
-            <el-form-item label="身份证号">
+            <el-form-item label="身份证号" prop="card">
               <el-input v-model="form.card"/>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col span="10">
-            <el-form-item label="籍贯">
+            <el-form-item label="籍贯" prop="nativtion">
               <el-input v-model="form.nativtion"/>
             </el-form-item>
           </el-col>
           <el-col span="10">
-            <el-form-item label="住址">
+            <el-form-item label="住址" prop="address">
               <el-input v-model="form.address"/>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col span="10">
-            <el-form-item label="联系电话">
+            <el-form-item label="联系电话" prop="telephone">
               <el-input v-model="form.telephone"/>
             </el-form-item>
           </el-col>
           <el-col span="10">
-            <el-form-item label="类别">
+            <el-form-item label="类别" prop="type">
               <el-select v-model="form.type" placeholder="请选择性别" style="width: 100%;">
                 <el-option label="积极分子" value="积极分子"/>
                 <el-option label="发展对象" value="发展对象"/>
@@ -123,7 +123,7 @@
         </el-row>
         <el-row>
           <el-col span="10">
-            <el-form-item label="申请入党时间">
+            <el-form-item label="申请入党时间" prop="sqrd_time">
               <el-date-picker type="date" value-format="yyyy-MM-dd" placeholder="请选择日期" v-model="form.sqrd_time"
                               style="width: 100%;"></el-date-picker>
             </el-form-item>
@@ -151,7 +151,7 @@
         </el-row>
         <el-row>
           <el-col span="20">
-            <el-form-item label="工作地址及职务">
+            <el-form-item label="工作地址及职务" prop="workplace">
               <el-input v-model="form.workplace"/>
             </el-form-item>
           </el-col>
@@ -164,15 +164,15 @@
     </el-dialog>
     <!--修改表单-->
     <el-dialog title="修改学生信息" :visible.sync="EditdialogVisible" width="30%">
-      <el-form ref="form" :model="{form}" label-width="80px">
+      <el-form :rules="rules" ref="form" :model="{form}" label-width="80px">
         <el-row>
           <el-col :span="10">
-            <el-form-item label="学号">
+            <el-form-item label="学号" prop="uuid">
               <el-input v-model="form.uuid">{{ this.form.uuid }}</el-input>
             </el-form-item>
           </el-col>
           <el-col :span="10">
-            <el-form-item label="支部名称">
+            <el-form-item label="支部名称" prop="org_name">
               <el-select v-model="form.org_name" placeholder="请选择所在支部名称" style="width: 100%;">
                 {{ this.form.org_name }}
                 <el-option label="本科生第一党支部" value="本科生第一党支部"/>
@@ -185,7 +185,7 @@
         </el-row>
         <el-row>
           <el-col :span="10">
-            <el-form-item label="支部书记">
+            <el-form-item label="支部书记" prop="org_present">
               <el-select v-model="form.org_present" placeholder="请选择支部书记" style="width: 100%;">
                 {{ this.form.org_present }}
                 <el-option label="杨莉" value="杨莉"/>
@@ -193,14 +193,14 @@
             </el-form-item>
           </el-col>
           <el-col :span="10">
-            <el-form-item label="姓名">
+            <el-form-item label="姓名" prop="name">
               <el-input v-model="form.name"> {{ this.form.name }}</el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="10">
-            <el-form-item label="性别">
+            <el-form-item label="性别" prop="sex">
               <el-select v-model="form.sex" placeholder="请选择性别" style="width: 100%;">
                 {{ this.form.sex }}
                 <el-option label="男" value="男"/>
@@ -209,45 +209,45 @@
             </el-form-item>
           </el-col>
           <el-col :span="10">
-            <el-form-item label="民族">
+            <el-form-item label="民族" prop="nation">
               <el-input v-model="form.nation">{{ this.form.nation }}</el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="10">
-            <el-form-item label="出生日期">
+            <el-form-item label="出生日期" prop="birthday">
               <el-date-picker type="date" value-format="yyyy-MM-dd" placeholder="请选择日期" v-model="form.birthday"
                               style="width: 100%;">{{ this.form.birthday }}
               </el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="10">
-            <el-form-item label="身份证号">
+            <el-form-item label="身份证号" prop="card">
               <el-input v-model="form.card">{{ this.form.card }}</el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="10">
-            <el-form-item label="籍贯">
+            <el-form-item label="籍贯" prop="nativtion">
               <el-input v-model="form.nativtion">{{ this.form.nativtion }}</el-input>
             </el-form-item>
           </el-col>
           <el-col :span="10">
-            <el-form-item label="住址">
+            <el-form-item label="住址" prop="address">
               <el-input v-model="form.address">{{ this.form.address }}</el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="10">
-            <el-form-item label="联系电话">
+            <el-form-item label="联系电话" prop="telephone">
               <el-input v-model="form.telephone">{{ this.form.telephone }}</el-input>
             </el-form-item>
           </el-col>
           <el-col :span="10">
-            <el-form-item label="类别">
+            <el-form-item label="类别" prop="type">
               <el-select v-model="form.type" placeholder="请选择性别" style="width: 100%;">
                 {{ this.form.type }}
                 <el-option label="积极分子" value="积极分子"/>
@@ -260,7 +260,7 @@
         </el-row>
         <el-row>
           <el-col :span="10">
-            <el-form-item label="申请入党时间">
+            <el-form-item label="申请入党时间" prop="sqrd_time">
               <el-date-picker type="date" value-format="yyyy-MM-dd" placeholder="请选择日期" v-model="form.sqrd_time"
                               style="width: 100%;">{{ this.form.sqrd_time }}
               </el-date-picker>
@@ -292,7 +292,7 @@
         </el-row>
         <el-row>
           <el-col :span="20">
-            <el-form-item label="工作地址及职务">
+            <el-form-item label="工作地址及职务" prop="workplace">
               <el-input v-model="form.workplace">{{ this.form.workplace }}</el-input>
             </el-form-item>
           </el-col>
@@ -425,6 +425,13 @@ export default {
           }
         ],
         type: [
+          {
+            required: true,
+            message: '请选择类型',
+            trigger: 'change'
+          }
+        ],
+        sqrd_time: [
           {
             required: true,
             message: '请选择类型',

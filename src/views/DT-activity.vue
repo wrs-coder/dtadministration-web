@@ -22,25 +22,25 @@
     <!--新增表单-->
     <el-dialog title="新增活动信息" :visible.sync="AdddialogVisible" width="30%">
       <el-form :rules="rules" ref="form" :model="form" label-width="80px">
-        <el-form-item label="活动名称">
+        <el-form-item label="活动名称" prop="name">
           <el-input v-model="form.name"/>
         </el-form-item>
         <el-form-item label="活动时间" required>
           <el-col :span="11">
-            <el-form-item>
+            <el-form-item prop="startTime">
               <el-date-picker type="date" value-format="yyyy-MM-dd" placeholder="开始时间" v-model="form.startTime"
                               style="width: 100%;"></el-date-picker>
             </el-form-item>
           </el-col>
           <el-col class="line" :span="2">-</el-col>
           <el-col :span="11">
-            <el-form-item>
+            <el-form-item prop="endTime">
               <el-date-picker type="date" value-format="yyyy-MM-dd" placeholder="结束时间" v-model="form.endTime"
                               style="width: 100%;"></el-date-picker>
             </el-form-item>
           </el-col>
         </el-form-item>
-        <el-form-item label="参与人数">
+        <el-form-item label="参与人数" prop="number">
           <el-input v-model="form.number" oninput="value=value.replace(/[^\d]/g,'')"/>
         </el-form-item>
       </el-form>
@@ -51,13 +51,13 @@
     </el-dialog>
     <!--修改表单-->
     <el-dialog title="修改活动信息" :visible.sync="EditdialogVisible" width="30%">
-      <el-form ref="form" :model="{form}" label-width="80px">
-        <el-form-item label="活动名称">
+      <el-form :rules="rules" ref="form" :model="{form}" label-width="80px" clearValidate>
+        <el-form-item label="活动名称" prop="name">
           <el-input v-model="form.name">{{ this.form.name }}</el-input>
         </el-form-item>
         <el-form-item label="活动时间" required>
           <el-col :span="11">
-            <el-form-item>
+            <el-form-item prop="startTime">
               <el-date-picker type="date" value-format="yyyy-MM-dd" placeholder="开始时间" v-model="form.startTime"
                               style="width: 100%;">{{ this.form.startTime }}
               </el-date-picker>
@@ -65,14 +65,14 @@
           </el-col>
           <el-col class="line" :span="2">-</el-col>
           <el-col :span="11">
-            <el-form-item>
+            <el-form-item prop="endTime">
               <el-date-picker type="date" value-format="yyyy-MM-dd" placeholder="结束时间" v-model="form.endTime"
                               style="width: 100%;">{{ this.form.endTime }}
               </el-date-picker>
             </el-form-item>
           </el-col>
         </el-form-item>
-        <el-form-item label="参与人数">
+        <el-form-item label="参与人数" prop="number">
           <el-input v-model="form.number" oninput="value=value.replace(/[^\d]/g,'')">{{ this.form.number }}</el-input>
         </el-form-item>
       </el-form>
@@ -100,7 +100,8 @@ export default {
         name: '',
         startTime: '',
         endTime: '',
-        number: ''
+        number: '',
+        time: ''
       },
       tableData: null,
       rules: {
@@ -147,6 +148,7 @@ export default {
             type: 'success'
           })
           this.tableData = response
+          this.$refs.form.resetFields()
         })
       })
     },
