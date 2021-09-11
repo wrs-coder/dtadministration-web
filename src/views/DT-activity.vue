@@ -21,7 +21,7 @@
     </el-main>
     <!--新增表单-->
     <el-dialog title="新增活动信息" :visible.sync="AdddialogVisible" width="30%">
-      <el-form :rules="rules" ref="form" :model="form" label-width="80px">
+      <el-form :rules="addRules" ref="form" :model="form" label-width="80px">
         <el-form-item label="活动名称" prop="name">
           <el-input v-model="form.name"/>
         </el-form-item>
@@ -51,29 +51,27 @@
     </el-dialog>
     <!--修改表单-->
     <el-dialog title="修改活动信息" :visible.sync="EditdialogVisible" width="30%">
-      <el-form :rules="rules" ref="form" :model="{form}" label-width="80px" clearValidate>
+      <el-form :rules="editRules" ref="editForm" :model="editForm" label-width="80px">
         <el-form-item label="活动名称" prop="name">
-          <el-input v-model="form.name">{{ this.form.name }}</el-input>
+          <el-input v-model="editForm.name"/>
         </el-form-item>
         <el-form-item label="活动时间" required>
           <el-col :span="11">
             <el-form-item prop="startTime">
-              <el-date-picker type="date" value-format="yyyy-MM-dd" placeholder="开始时间" v-model="form.startTime"
-                              style="width: 100%;">{{ this.form.startTime }}
-              </el-date-picker>
+              <el-date-picker type="date" value-format="yyyy-MM-dd" placeholder="开始时间" v-model="editForm.startTime"
+                              style="width: 100%;"/>
             </el-form-item>
           </el-col>
           <el-col class="line" :span="2">-</el-col>
           <el-col :span="11">
             <el-form-item prop="endTime">
-              <el-date-picker type="date" value-format="yyyy-MM-dd" placeholder="结束时间" v-model="form.endTime"
-                              style="width: 100%;">{{ this.form.endTime }}
-              </el-date-picker>
+              <el-date-picker type="date" value-format="yyyy-MM-dd" placeholder="结束时间" v-model="editForm.endTime"
+                              style="width: 100%;"/>
             </el-form-item>
           </el-col>
         </el-form-item>
         <el-form-item label="参与人数" prop="number">
-          <el-input v-model="form.number" oninput="value=value.replace(/[^\d]/g,'')">{{ this.form.number }}</el-input>
+          <el-input v-model="editForm.number" oninput="value=value.replace(/[^\d]/g,'')"/>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -96,6 +94,7 @@ export default {
     return {
       AdddialogVisible: false,
       EditdialogVisible: false,
+      editForm: {},
       form: {
         name: '',
         startTime: '',
@@ -104,7 +103,7 @@ export default {
         time: ''
       },
       tableData: null,
-      rules: {
+      addRules: {
         name: [
           {
             required: true,
@@ -114,7 +113,6 @@ export default {
         ],
         startTime: [
           {
-            type: 'date',
             required: true,
             message: '请选择开始时间',
             trigger: 'change'
@@ -122,7 +120,36 @@ export default {
         ],
         endTime: [
           {
-            type: 'date',
+            required: true,
+            message: '请选择结束时间',
+            trigger: 'change'
+          }
+        ],
+        number: [
+          {
+            required: true,
+            message: '请输入人数',
+            trigger: 'blur'
+          }
+        ]
+      },
+      editRules: {
+        name: [
+          {
+            required: true,
+            message: '请输入活动名称',
+            trigger: 'blur'
+          }
+        ],
+        startTime: [
+          {
+            required: true,
+            message: '请选择开始时间',
+            trigger: 'change'
+          }
+        ],
+        endTime: [
+          {
             required: true,
             message: '请选择结束时间',
             trigger: 'change'
@@ -197,12 +224,12 @@ export default {
         tableName: 'DT_activity'
       }
       this.$http('post', '/api/StudentQuery', { queryList: queryList }).then(response => {
-        this.form = response[0]
+        this.editForm = response[0]
       })
     },
     // 提交
     editStudent () {
-      this.$http('post', '/api/updateActivity', this.form).then(response => {
+      this.$http('post', '/api/updateActivity', this.editForm).then(response => {
         this.$http('post', '/api/query', { tableName: 'DT_activity' }).then(response => {
           this.$message({
             message: '修改成功',

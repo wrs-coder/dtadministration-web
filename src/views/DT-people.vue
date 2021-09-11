@@ -32,14 +32,14 @@
     </el-table>
     <!--新增表单-->
     <el-dialog title="新增学生信息" :visible.sync="AdddialogVisible">
-      <el-form :rules="rules" ref="form" :model="form" label-width="190px">
+      <el-form :rules="addRules" ref="form" :model="form" label-width="150px">
         <el-row>
-          <el-col span="10">
+          <el-col :xs="4" :md="10" :lg="12">
             <el-form-item label="学号" prop="uuid">
-              <el-input v-model="form.uuid"/>
+              <el-input v-model="form.uuid" oninput="value=value.replace(/[^\d]/g,'')"/>
             </el-form-item>
           </el-col>
-          <el-col span="10">
+          <el-col :xs="4" :md="10" :lg="12">
             <el-form-item label="支部名称" prop="org_name">
               <el-select v-model="form.org_name" placeholder="请选择所在支部名称" style="width: 100%;">
                 <el-option label="本科生第一党支部" value="本科生第一党支部"/>
@@ -51,21 +51,21 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col span="10">
+          <el-col :xs="4" :md="10" :lg="12">
             <el-form-item label="支部书记" prop="org_present">
               <el-select v-model="form.org_present" placeholder="请选择支部书记" style="width: 100%;">
                 <el-option label="杨莉" value="杨莉"/>
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col span="10">
+          <el-col :xs="4" :md="10" :lg="12">
             <el-form-item label="姓名" prop="name">
               <el-input v-model="form.name"/>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
-          <el-col span="10">
+          <el-col :xs="4" :md="10" :lg="12">
             <el-form-item label="性别" prop="sex">
               <el-select v-model="form.sex" placeholder="请选择性别" style="width: 100%;">
                 <el-option label="男" value="男"/>
@@ -73,44 +73,44 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col span="10">
+          <el-col :xs="4" :md="10" :lg="12">
             <el-form-item label="民族" prop="nation">
               <el-input v-model="form.nation"/>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
-          <el-col span="10">
+          <el-col :xs="4" :md="10" :lg="12">
             <el-form-item label="出生日期" prop="birthday">
               <el-date-picker type="date" value-format="yyyy-MM-dd" placeholder="请选择日期" v-model="form.birthday"
                               style="width: 100%;"></el-date-picker>
             </el-form-item>
           </el-col>
-          <el-col span="10">
+          <el-col :xs="4" :md="10" :lg="12">
             <el-form-item label="身份证号" prop="card">
               <el-input v-model="form.card"/>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
-          <el-col span="10">
+          <el-col :xs="4" :md="10" :lg="12">
             <el-form-item label="籍贯" prop="nativtion">
               <el-input v-model="form.nativtion"/>
             </el-form-item>
           </el-col>
-          <el-col span="10">
+          <el-col :xs="4" :md="10" :lg="12">
             <el-form-item label="住址" prop="address">
               <el-input v-model="form.address"/>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
-          <el-col span="10">
+          <el-col :xs="4" :md="10" :lg="12">
             <el-form-item label="联系电话" prop="telephone">
-              <el-input v-model="form.telephone"/>
+              <el-input v-model="form.telephone" oninput="value=value.replace(/[^\d]/g,'')"/>
             </el-form-item>
           </el-col>
-          <el-col span="10">
+          <el-col :xs="4" :md="10" :lg="12">
             <el-form-item label="类别" prop="type">
               <el-select v-model="form.type" placeholder="请选择性别" style="width: 100%;">
                 <el-option label="积极分子" value="积极分子"/>
@@ -122,35 +122,35 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col span="10">
+          <el-col :xs="4" :md="10" :lg="12">
             <el-form-item label="申请入党时间" prop="sqrd_time">
               <el-date-picker type="date" value-format="yyyy-MM-dd" placeholder="请选择日期" v-model="form.sqrd_time"
                               style="width: 100%;"></el-date-picker>
             </el-form-item>
           </el-col>
-          <el-col span="10">
-            <el-form-item label="确认为积极分子时间">
+          <el-col :xs="4" :md="10" :lg="12">
+            <el-form-item label="确认为积极分子时间" prop="jjfz_time">
               <el-date-picker type="date" value-format="yyyy-MM-dd" placeholder="请选择日期" v-model="form.jjfz_time"
                               style="width: 100%;"></el-date-picker>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
-          <el-col span="10">
-            <el-form-item label="列为发展对象时间">
+          <el-col :xs="4" :md="10" :lg="12">
+            <el-form-item label="列为发展对象时间" prop="fzdx_time">
               <el-date-picker type="date" value-format="yyyy-MM-dd" placeholder="请选择日期" v-model="form.fzdx_time"
                               style="width: 100%;"></el-date-picker>
             </el-form-item>
           </el-col>
-          <el-col span="10">
-            <el-form-item label="入党时间">
+          <el-col :xs="4" :md="10" :lg="12">
+            <el-form-item label="入党时间" prop="rd_time">
               <el-date-picker type="date" value-format="yyyy-MM-dd" placeholder="请选择日期" v-model="form.rd_time"
                               style="width: 100%;"></el-date-picker>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
-          <el-col span="20">
+          <el-col :xs="4" :md="10" :lg="12">
             <el-form-item label="工作地址及职务" prop="workplace">
               <el-input v-model="form.workplace"/>
             </el-form-item>
@@ -163,18 +163,17 @@
       </span>
     </el-dialog>
     <!--修改表单-->
-    <el-dialog title="修改学生信息" :visible.sync="EditdialogVisible" width="30%">
-      <el-form :rules="rules" ref="form" :model="{form}" label-width="80px">
+    <el-dialog title="修改学生信息" :visible.sync="EditdialogVisible">
+      <el-form :rules="editRules" ref="editForm" :model="editForm" label-width="150px">
         <el-row>
-          <el-col :span="10">
+          <el-col :xs="4" :md="10" :lg="12">
             <el-form-item label="学号" prop="uuid">
-              <el-input v-model="form.uuid">{{ this.form.uuid }}</el-input>
+              <el-input v-model="editForm.uuid" oninput="value=value.replace(/[^\d]/g,'')"/>
             </el-form-item>
           </el-col>
-          <el-col :span="10">
+          <el-col :xs="4" :md="10" :lg="12">
             <el-form-item label="支部名称" prop="org_name">
-              <el-select v-model="form.org_name" placeholder="请选择所在支部名称" style="width: 100%;">
-                {{ this.form.org_name }}
+              <el-select v-model="editForm.org_name" placeholder="请选择所在支部名称" style="width: 100%;">
                 <el-option label="本科生第一党支部" value="本科生第一党支部"/>
                 <el-option label="本科生第二党支部" value="本科生第二党支部"/>
                 <el-option label="本科生第三党支部" value="本科生第三党支部"/>
@@ -184,72 +183,68 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="10">
+          <el-col :xs="4" :md="10" :lg="12">
             <el-form-item label="支部书记" prop="org_present">
-              <el-select v-model="form.org_present" placeholder="请选择支部书记" style="width: 100%;">
-                {{ this.form.org_present }}
+              <el-select v-model="editForm.org_present" placeholder="请选择支部书记" style="width: 100%;">
                 <el-option label="杨莉" value="杨莉"/>
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="10">
+          <el-col :xs="4" :md="10" :lg="12">
             <el-form-item label="姓名" prop="name">
-              <el-input v-model="form.name"> {{ this.form.name }}</el-input>
+              <el-input v-model="editForm.name"/>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="10">
+          <el-col :xs="4" :md="10" :lg="12">
             <el-form-item label="性别" prop="sex">
-              <el-select v-model="form.sex" placeholder="请选择性别" style="width: 100%;">
-                {{ this.form.sex }}
+              <el-select v-model="editForm.sex" placeholder="请选择性别" style="width: 100%;">
                 <el-option label="男" value="男"/>
                 <el-option label="女" value="女"/>
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="10">
+          <el-col :xs="4" :md="10" :lg="12">
             <el-form-item label="民族" prop="nation">
-              <el-input v-model="form.nation">{{ this.form.nation }}</el-input>
+              <el-input v-model="editForm.nation"/>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="10">
+          <el-col :xs="4" :md="10" :lg="12">
             <el-form-item label="出生日期" prop="birthday">
-              <el-date-picker type="date" value-format="yyyy-MM-dd" placeholder="请选择日期" v-model="form.birthday"
-                              style="width: 100%;">{{ this.form.birthday }}
-              </el-date-picker>
+              <el-date-picker type="date" value-format="yyyy-MM-dd" placeholder="请选择日期" v-model="editForm.birthday"
+                              style="width: 100%;"/>
             </el-form-item>
           </el-col>
-          <el-col :span="10">
+          <el-col :xs="4" :md="10" :lg="12">
             <el-form-item label="身份证号" prop="card">
-              <el-input v-model="form.card">{{ this.form.card }}</el-input>
+              <el-input v-model="editForm.card"/>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="10">
+          <el-col :xs="4" :md="10" :lg="12">
             <el-form-item label="籍贯" prop="nativtion">
-              <el-input v-model="form.nativtion">{{ this.form.nativtion }}</el-input>
+              <el-input v-model="editForm.nativtion"/>
             </el-form-item>
           </el-col>
-          <el-col :span="10">
+          <el-col :xs="4" :md="10" :lg="12">
             <el-form-item label="住址" prop="address">
-              <el-input v-model="form.address">{{ this.form.address }}</el-input>
+              <el-input v-model="editForm.address"/>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="10">
+          <el-col :xs="4" :md="10" :lg="12">
             <el-form-item label="联系电话" prop="telephone">
-              <el-input v-model="form.telephone">{{ this.form.telephone }}</el-input>
+              <el-input v-model="editForm.telephone" oninput="value=value.replace(/[^\d]/g,'')"/>
             </el-form-item>
           </el-col>
-          <el-col :span="10">
+          <el-col :xs="4" :md="10" :lg="12">
             <el-form-item label="类别" prop="type">
-              <el-select v-model="form.type" placeholder="请选择性别" style="width: 100%;">
-                {{ this.form.type }}
+              <el-select v-model="editForm.type" placeholder="请选择性别" style="width: 100%;">
                 <el-option label="积极分子" value="积极分子"/>
                 <el-option label="发展对象" value="发展对象"/>
                 <el-option label="预备党员" value="预备党员"/>
@@ -259,41 +254,37 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="10">
+          <el-col :xs="4" :md="10" :lg="12">
             <el-form-item label="申请入党时间" prop="sqrd_time">
-              <el-date-picker type="date" value-format="yyyy-MM-dd" placeholder="请选择日期" v-model="form.sqrd_time"
-                              style="width: 100%;">{{ this.form.sqrd_time }}
-              </el-date-picker>
+              <el-date-picker type="date" value-format="yyyy-MM-dd" placeholder="请选择日期" v-model="editForm.sqrd_time"
+                              style="width: 100%;"/>
             </el-form-item>
           </el-col>
-          <el-col :span="10">
-            <el-form-item label="确认为积极分子时间">
-              <el-date-picker type="date" value-format="yyyy-MM-dd" placeholder="请选择日期" v-model="form.jjfz_time"
-                              style="width: 100%;">{{ this.form.jjfz_time }}
-              </el-date-picker>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="10">
-            <el-form-item label="列为发展对象时间">
-              <el-date-picker type="date" value-format="yyyy-MM-dd" placeholder="请选择日期" v-model="form.fzdx_time"
-                              style="width: 100%;">{{ this.form.fzdx_time }}
-              </el-date-picker>
-            </el-form-item>
-          </el-col>
-          <el-col :span="10">
-            <el-form-item label="入党时间">
-              <el-date-picker type="date" value-format="yyyy-MM-dd" placeholder="请选择日期" v-model="form.rd_time"
-                              style="width: 100%;">{{ this.form.rd_time }}
-              </el-date-picker>
+          <el-col :xs="4" :md="10" :lg="12">
+            <el-form-item label="确认为积极分子时间" prop="jjfz_time">
+              <el-date-picker type="date" value-format="yyyy-MM-dd" placeholder="请选择日期" v-model="editForm.jjfz_time"
+                              style="width: 100%;"/>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="20">
+          <el-col :xs="4" :md="10" :lg="12">
+            <el-form-item label="列为发展对象时间" prop="fzdx_time">
+              <el-date-picker type="date" value-format="yyyy-MM-dd" placeholder="请选择日期" v-model="editForm.fzdx_time"
+                              style="width: 100%;"/>
+            </el-form-item>
+          </el-col>
+          <el-col :xs="4" :md="10" :lg="12">
+            <el-form-item label="入党时间" prop="rd_time">
+              <el-date-picker type="date" value-format="yyyy-MM-dd" placeholder="请选择日期" v-model="editForm.rd_time"
+                              style="width: 100%;"/>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :xs="4" :md="10" :lg="12">
             <el-form-item label="工作地址及职务" prop="workplace">
-              <el-input v-model="form.workplace">{{ this.form.workplace }}</el-input>
+              <el-input v-model="editForm.workplace"/>
             </el-form-item>
           </el-col>
         </el-row>
@@ -319,6 +310,7 @@ export default {
       search: '',
       AdddialogVisible: false,
       EditdialogVisible: false,
+      editForm: {},
       form: {
         uuid: '',
         org_name: '',
@@ -339,7 +331,107 @@ export default {
         rd_time: ''
       },
       tableData: null,
-      rules: {
+      addRules: {
+        uuid: [
+          {
+            required: true,
+            message: '请输入学生学号',
+            trigger: 'blur'
+          }
+        ],
+        org_name: [
+          {
+            required: true,
+            message: '请选择支部名称',
+            trigger: 'change'
+          }
+        ],
+        org_present: [
+          {
+            required: true,
+            message: '请选择支部书记',
+            trigger: 'change'
+          }
+        ],
+        name: [
+          {
+            required: true,
+            message: '请输入姓名',
+            trigger: 'blur'
+          }
+        ],
+        sex: [
+          {
+            required: true,
+            message: '请选择性别',
+            trigger: 'change'
+          }
+        ],
+        nation: [
+          {
+            required: true,
+            message: '请输入民族',
+            trigger: 'blur'
+          }
+        ],
+        birthday: [
+          {
+            required: true,
+            message: '请选择日期',
+            trigger: 'change'
+          }
+        ],
+        card: [
+          {
+            required: true,
+            message: '请输入身份证号',
+            trigger: 'blur'
+          }
+        ],
+        nativtion: [
+          {
+            required: true,
+            message: '请输入籍贯',
+            trigger: 'blur'
+          }
+        ],
+        address: [
+          {
+            required: true,
+            message: '请输入住址',
+            trigger: 'blur'
+          }
+        ],
+        telephone: [
+          {
+            required: true,
+            message: '请输入联系电话',
+            trigger: 'blur'
+          }
+        ],
+        workplace: [
+          {
+            required: true,
+            message: '请输入工作地址及职务',
+            trigger: 'blur'
+          }
+        ],
+        type: [
+          {
+            required: true,
+            message: '请选择类型',
+            trigger: 'change'
+          }
+        ],
+        sqrd_time: [
+          {
+            required: true,
+            message: '请选择类型',
+            trigger: 'change'
+          }
+        ]
+      },
+      editRules: {
         uuid: [
           {
             required: true,
@@ -451,6 +543,7 @@ export default {
             type: 'success'
           })
           this.tableData = response
+          this.$refs.form.resetFields()
         })
       })
     },
@@ -499,12 +592,12 @@ export default {
         tableName: 'DT_people'
       }
       this.$http('post', '/api/StudentQuery', { queryList: queryList }).then(response => {
-        this.form = response[0]
+        this.editForm = response[0]
       })
     },
     // 提交
     editStudent () {
-      this.$http('post', '/api/updatePeople', this.form).then(response => {
+      this.$http('post', '/api/updatePeople', this.editForm).then(response => {
         this.$http('post', '/api/query', { tableName: 'DT_people' }).then(response => {
           this.$message({
             message: '修改成功',

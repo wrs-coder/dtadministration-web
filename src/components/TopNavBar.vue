@@ -2,7 +2,7 @@
   <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
     <el-menu-item><h1 class="title">党团管理系统</h1></el-menu-item>
     <el-menu-item index="1">处理中心</el-menu-item>
-    <el-menu-item index="2"><a href="http://www.cqupt.edu.cn/" target="_blank">重邮官网</a></el-menu-item>
+    <el-menu-item index="2"><a href="https://www.cqupt.edu.cn/" target="_blank">重邮官网</a></el-menu-item>
     <span class="ExitButton">
      <el-button type="primary" size="small" @click="exit">退出</el-button>
   </span>
