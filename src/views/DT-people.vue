@@ -12,7 +12,7 @@
         </el-input>
       </div>
     </el-header>
-    <el-table :data="tableData" height="250" style="width: 100%">
+    <el-table :data="tableData">
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-form label-position="left" inline class="demo-table-expand">
@@ -67,15 +67,15 @@
           </el-form>
         </template>
       </el-table-column>
-      <el-table-column prop="name" label="姓名" width="90" align="center"/>
-      <el-table-column prop="uuid" label="学号" width="100" align="center"/>
+      <el-table-column prop="name" label="姓名" width="150" align="center"/>
+      <el-table-column prop="uuid" label="学号" width="150" align="center"/>
       <el-table-column prop="type" label="类别" width="150" align="center"/>
-      <el-table-column prop="org_name" label="支部名称" width="140" align="center"/>
-      <el-table-column prop="sex" label="性别" width="50" align="center"/>
-      <el-table-column prop="nativtion" label="籍贯" width="90" align="center"/>
-      <el-table-column prop="address" label="住址" width="210" align="center"/>
-      <el-table-column prop="telephone" label="联系电话" width="110" align="center"/>
-      <el-table-column label="操作" width="100" align="center">
+      <el-table-column prop="org_name" label="支部名称" width="150" align="center"/>
+      <el-table-column prop="sex" label="性别" width="100" align="center"/>
+      <el-table-column prop="nativtion" label="籍贯" width="100" align="center"/>
+      <el-table-column prop="address" label="住址" width="250" align="center"/>
+      <el-table-column prop="telephone" label="联系电话" width="200" align="center"/>
+      <el-table-column label="操作" align="center">
         <template slot-scope="scope">
           <el-button size="mini" type="danger" icon="el-icon-delete" @click="handleDelete(scope.$index, scope.row)"
                      circle>
@@ -678,10 +678,6 @@ export default {
 </script>
 
 <style scoped>
-el-container {
-  height: 100%;
-}
-
 .el-input .el-select {
   width: 100px;
 }

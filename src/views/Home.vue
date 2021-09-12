@@ -36,8 +36,8 @@ export default {
   padding: 0;
 }
 
-.el-container {
-  height: 900px;
+.el-main {
+  height: 100%;
 }
 
 </style>
