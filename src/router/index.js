@@ -5,6 +5,7 @@ import HelloPage from '../views/HelloPage'
 import Home from '../views/Home'
 import People from '../views/DT-people'
 import Activity from '../views/DT-activity'
+import Group from '../views/DT-group'
 
 Vue.use(VueRouter)
 
@@ -33,6 +34,11 @@ const routes = [
         path: '/Activity',
         name: 'Activity',
         component: Activity
+      },
+      {
+        path: '/Group',
+        name: 'Group',
+        component: Group
       }
     ]
   }

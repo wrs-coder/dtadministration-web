@@ -4,6 +4,7 @@
     :default-active="this.$route.path"
     class="el-menu-vertical-demo">
     <el-menu-item v-for="(item,i) in menuList" :key="i" :index="item.path">
+      <i :class="item.icon"></i>
       <span slot="title">{{ item.name }}</span>
     </el-menu-item>
   </el-menu>
@@ -17,15 +18,23 @@ export default {
       menuList: [
         {
           name: '首页',
-          path: '/HelloPage'
+          path: '/HelloPage',
+          icon: 'el-icon-s-home'
         },
         {
           name: '人员管理',
-          path: '/People'
+          path: '/People',
+          icon: 'el-icon-s-custom'
         },
         {
           name: '活动管理',
-          path: '/Activity'
+          path: '/Activity',
+          icon: 'el-icon-s-flag'
+        },
+        {
+          name: '批次管理',
+          path: '/Group',
+          icon: 'el-icon-suitcase'
         }]
     }
   }

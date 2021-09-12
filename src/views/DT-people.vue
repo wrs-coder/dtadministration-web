@@ -1,25 +1,80 @@
 <template>
   <el-container>
-    <el-header>
+    <el-header style="height: 10%">
       <el-button size="mini" type="button" icon="el-icon-plus" @click="AdddialogVisible = true" circle/>
+      <div style="margin-top: 15px;">
+        <el-input placeholder="请输入内容" v-model="search" class="input-with-select" clearable>
+          <el-select v-model="select" slot="prepend" placeholder="请选择">
+            <el-option label="姓名" value="name"></el-option>
+            <el-option label="学号" value="uuid"></el-option>
+          </el-select>
+          <el-button slot="append" icon="el-icon-search" @click="searchStudent(select,search)"></el-button>
+        </el-input>
+      </div>
     </el-header>
     <el-table :data="tableData" height="250" style="width: 100%">
-      <el-table-column fixed prop="name" label="姓名" width="90" align="center"/>
+      <el-table-column type="expand">
+        <template slot-scope="props">
+          <el-form label-position="left" inline class="demo-table-expand">
+            <el-form-item label="姓名:">
+              <span>{{ props.row.name }}</span>
+            </el-form-item>
+            <el-form-item label="学号:">
+              <span>{{ props.row.uuid }}</span>
+            </el-form-item>
+            <el-form-item label="支部名称:">
+              <span>{{ props.row.org_name }}</span>
+            </el-form-item>
+            <el-form-item label="性别:">
+              <span>{{ props.row.sex }}</span>
+            </el-form-item>
+            <el-form-item label="民族:">
+              <span>{{ props.row.nation }}</span>
+            </el-form-item>
+            <el-form-item label="初生日期:">
+              <span>{{ props.row.birthday }}</span>
+            </el-form-item>
+            <el-form-item label="身份证号码:">
+              <span>{{ props.row.card }}</span>
+            </el-form-item>
+            <el-form-item label="籍贯:">
+              <span>{{ props.row.nativtion }}</span>
+            </el-form-item>
+            <el-form-item label="住址:">
+              <span>{{ props.row.address }}</span>
+            </el-form-item>
+            <el-form-item label="联系电话:">
+              <span>{{ props.row.telephone }}</span>
+            </el-form-item>
+            <el-form-item label="工作单位及职务:">
+              <span>{{ props.row.workplace }}</span>
+            </el-form-item>
+            <el-form-item label="类别:">
+              <span>{{ props.row.type }}</span>
+            </el-form-item>
+            <el-form-item label="申请入党时间:">
+              <span>{{ props.row.sqrd_time }}</span>
+            </el-form-item>
+            <el-form-item label="确认为入党积极分子时间:">
+              <span>{{ props.row.jjfz_time }}</span>
+            </el-form-item>
+            <el-form-item label="列为发展对象时间:">
+              <span>{{ props.row.fzdx_time }}</span>
+            </el-form-item>
+            <el-form-item label="入党时间:">
+              <span>{{ props.row.rd_time }}</span>
+            </el-form-item>
+          </el-form>
+        </template>
+      </el-table-column>
+      <el-table-column prop="name" label="姓名" width="90" align="center"/>
       <el-table-column prop="uuid" label="学号" width="100" align="center"/>
+      <el-table-column prop="type" label="类别" width="150" align="center"/>
       <el-table-column prop="org_name" label="支部名称" width="140" align="center"/>
       <el-table-column prop="sex" label="性别" width="50" align="center"/>
-      <el-table-column prop="nation" label="民族" width="80" align="center"/>
-      <el-table-column prop="birthday" label="出生日期" width="120" align="center"/>
-      <el-table-column prop="card" label="身份证号码" width="180" align="center"/>
       <el-table-column prop="nativtion" label="籍贯" width="90" align="center"/>
       <el-table-column prop="address" label="住址" width="210" align="center"/>
       <el-table-column prop="telephone" label="联系电话" width="110" align="center"/>
-      <el-table-column prop="workplace" label="工作单位及职务" width="150" align="center"/>
-      <el-table-column prop="type" label="类别" width="150" align="center"/>
-      <el-table-column prop="sqrd_time" label="申请入党时间" width="140" align="center"/>
-      <el-table-column prop="jjfz_time" label="确认为入党积极分子时间" width="180" align="center"/>
-      <el-table-column prop="fzdx_time" label="列为发展对象时间" width="180" align="center"/>
-      <el-table-column prop="rd_time" label="入党时间" width="180" align="center"/>
       <el-table-column label="操作" width="100" align="center">
         <template slot-scope="scope">
           <el-button size="mini" type="danger" icon="el-icon-delete" @click="handleDelete(scope.$index, scope.row)"
@@ -308,6 +363,7 @@ export default {
   data () {
     return {
       search: '',
+      select: '',
       AdddialogVisible: false,
       EditdialogVisible: false,
       editForm: {},
@@ -534,6 +590,16 @@ export default {
     }
   },
   methods: {
+    // 搜索
+    searchStudent (select, search) {
+      this.$http('post', '/api/search', {
+        type: select,
+        content: search,
+        tableName: 'DT_people'
+      }).then(response => {
+        this.tableData = response
+      })
+    },
     // 新增
     addStudent () {
       this.$http('post', '/api/insertPeople', this.form).then(() => {
@@ -614,5 +680,28 @@ export default {
 <style scoped>
 el-container {
   height: 100%;
+}
+
+.el-input .el-select {
+  width: 100px;
+}
+
+.input-with-select .el-input-group__prepend {
+  background-color: #fff;
+}
+
+.demo-table-expand {
+  font-size: 0;
+}
+
+.demo-table-expand label {
+  width: 90px;
+  color: #99a9bf;
+}
+
+.demo-table-expand .el-form-item {
+  margin-right: 0;
+  margin-bottom: 0;
+  width: 50%;
 }
 </style>
