@@ -1,6 +1,8 @@
 <template>
   <el-container>
-    <el-header><h1>Hello! 欢迎使用</h1></el-header>
+    <el-header>
+      <h1>Hello! 欢迎使用</h1>
+    </el-header>
     <el-main>
       <el-row :gutter="2">
         <el-col :xs="2" :md="4" :lg="6">

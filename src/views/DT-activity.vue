@@ -1,14 +1,27 @@
 <template>
   <el-container>
     <el-header>
-      <el-button size="mini" type="button" icon="el-icon-plus" @click="AdddialogVisible = true" circle/>
+      <el-button size="mini" type="button" icon="el-icon-plus" @click="addEvent();AdddialogVisible = true" circle/>
     </el-header>
     <el-main>
       <el-table :data="tableData" style="width: 100%">
-        <el-table-column prop="name" label="活动名称" width="180"/>
-        <el-table-column prop="startTime" label="开始时间" width="180"/>
-        <el-table-column prop="endTime" label="结束时间" width="180"/>
-        <el-table-column prop="number" label="参与人数" width="180"/>
+        <el-table-column prop="name" label="活动名称" width="180" align="center"/>
+        <el-table-column prop="startTime" label="开始时间" width="180" align="center"/>
+        <el-table-column prop="endTime" label="结束时间" width="180" align="center"/>
+        <el-table-column label="详情" width="180">
+          <template slot-scope="scope">
+            <el-button type="text" @click="showMessage(scope.$index, scope.row);dialogTableVisible = true">详情
+            </el-button>
+            <el-dialog title="详情" :visible.sync="dialogTableVisible">
+              <el-table :data="gridData">
+                <el-table-column property="name" label="活动名称" width="150"></el-table-column>
+                <el-table-column property="startTime" label="开始时间" width="150"></el-table-column>
+                <el-table-column property="endTime" label="结束时间" width="150"></el-table-column>
+                <el-table-column property="member" label="参与人员"></el-table-column>
+              </el-table>
+            </el-dialog>
+          </template>
+        </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button size="mini" type="danger" icon="el-icon-delete" @click="handleDelete(scope.$index, scope.row)"
@@ -40,8 +53,15 @@
             </el-form-item>
           </el-col>
         </el-form-item>
-        <el-form-item label="参与人数" prop="number">
-          <el-input v-model="form.number" oninput="value=value.replace(/[^\d]/g,'')"/>
+        <el-form-item label="参与人员" prop="member">
+          <el-select v-model="form.member" multiple placeholder="请选择">
+            <el-option
+              v-for="(item,index) in options"
+              :key="index"
+              :label="item.name"
+              :value="item.uuid">
+            </el-option>
+          </el-select>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -70,8 +90,8 @@
             </el-form-item>
           </el-col>
         </el-form-item>
-        <el-form-item label="参与人数" prop="number">
-          <el-input v-model="editForm.number" oninput="value=value.replace(/[^\d]/g,'')"/>
+        <el-form-item label="参与人员" prop="member">
+          <el-input v-model="editForm.member" oninput="value=value.replace(/[^\d]/g,'')"/>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -94,15 +114,16 @@ export default {
     return {
       AdddialogVisible: false,
       EditdialogVisible: false,
+      dialogTableVisible: false,
+      options: {},
       editForm: {},
       form: {
-        name: '',
+        activityName: '',
         startTime: '',
-        endTime: '',
-        number: '',
-        time: ''
+        endTime: ''
       },
       tableData: null,
+      gridData: null,
       addRules: {
         name: [
           {
@@ -125,10 +146,10 @@ export default {
             trigger: 'change'
           }
         ],
-        number: [
+        member: [
           {
             required: true,
-            message: '请输入人数',
+            message: '请选择人员',
             trigger: 'blur'
           }
         ]
@@ -155,10 +176,10 @@ export default {
             trigger: 'change'
           }
         ],
-        number: [
+        member: [
           {
             required: true,
-            message: '请输入人数',
+            message: '请选择人员',
             trigger: 'blur'
           }
         ]
@@ -166,9 +187,38 @@ export default {
     }
   },
   methods: {
-    // 新增
+    // 查询人员信息
+    addEvent () {
+      this.$http('post', '/api/query', { tableName: 'DT_people' }).then(response => {
+        this.options = response
+      })
+    },
+    // 展示活动详情
+    showMessage (index, row) {
+      const queryList = {
+        name: row.name,
+        tableName: 'DT_activity'
+      }
+      this.$http('post', '/api/StudentQuery', { queryList: queryList }).then(response => {
+        this.gridData = response
+      })
+    },
+    // 新增活动
     addStudent () {
-      this.$http('post', '/api/insertActivity', this.form).then(() => {
+      this.$refs.form.validate(valid => {
+        if (valid) {
+          if (this.form.member) {
+            this.form.member = this.form.member.join(',')
+          }
+        }
+      })
+      const insertList = {
+        activityName: this.form.name,
+        startTime: this.form.startTime,
+        endTime: this.form.endTime,
+        member: this.form.member
+      }
+      this.$http('post', '/api/insertActivity', { insertList: insertList }).then(() => {
         this.$http('post', '/api/query', { tableName: 'DT_activity' }).then(response => {
           this.$message({
             message: '新增成功',

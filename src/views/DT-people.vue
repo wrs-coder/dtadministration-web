@@ -31,7 +31,7 @@
             <el-form-item label="民族:">
               <span>{{ props.row.nation }}</span>
             </el-form-item>
-            <el-form-item label="初生日期:">
+            <el-form-item label="出生日期:">
               <span>{{ props.row.birthday }}</span>
             </el-form-item>
             <el-form-item label="身份证号码:">
@@ -223,7 +223,7 @@
         <el-row>
           <el-col :xs="4" :md="10" :lg="12">
             <el-form-item label="学号" prop="uuid">
-              <el-input v-model="editForm.uuid" oninput="value=value.replace(/[^\d]/g,'')"/>
+              <el-input v-model="editForm.uuid" :disabled="true" oninput="value=value.replace(/[^\d]/g,'')"/>
             </el-form-item>
           </el-col>
           <el-col :xs="4" :md="10" :lg="12">
