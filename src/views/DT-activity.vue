@@ -118,7 +118,7 @@ export default {
       options: {},
       editForm: {},
       form: {
-        activityName: '',
+        name: '',
         startTime: '',
         endTime: ''
       },
@@ -213,7 +213,7 @@ export default {
         }
       })
       const insertList = {
-        activityName: this.form.name,
+        name: this.form.name,
         startTime: this.form.startTime,
         endTime: this.form.endTime,
         member: this.form.member

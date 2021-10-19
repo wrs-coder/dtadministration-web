@@ -10,6 +10,21 @@
         <el-table-column prop="time" label="建立时间" width="180"/>
         <el-table-column prop="number" label="批次人数" width="180"/>
         <el-table-column prop="file" label="附件" width="180"/>
+        <el-table-column label="详情" width="180">
+          <template slot-scope="scope">
+            <el-button type="text" @click="showMessage(scope.$index, scope.row);dialogTableVisible = true">详情
+            </el-button>
+            <el-dialog title="详情" :visible.sync="dialogTableVisible">
+              <el-table :data="gridData">
+                <el-table-column property="uuid" label="学号" width="150" align="center"/>
+                <el-table-column property="name" label="姓名" width="150" align="center"/>
+                <el-table-column property="sex" label="性别" width="100" align="center"/>
+                <el-table-column property="type" label="类别" width="150" align="center"/>
+                <el-table-column property="org_name" label="支部名称" align="center"/>
+              </el-table>
+            </el-dialog>
+          </template>
+        </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button size="mini" type="danger" icon="el-icon-delete" @click="handleDelete(scope.$index, scope.row)"
@@ -101,6 +116,7 @@ export default {
       EditdialogVisible: false,
       dialogTableVisible: false,
       tableData: null,
+      gridData: null,
       form: {
         name: '',
         type: '',
@@ -179,8 +195,17 @@ export default {
       this.$http('post', '/api/StudentQuery', { queryList: queryList }).then(response => {
         this.editForm = response[0]
       })
+    },
+    // 展示活动详情
+    showMessage (index, row) {
+      const queryList = {
+        name: row.name,
+        tableName: 'DT_group'
+      }
+      this.$http('post', '/api/StudentQuery', { queryList: queryList }).then(response => {
+        this.gridData = response
+      })
     }
-    // 文件上传
   }
 }
 </script>

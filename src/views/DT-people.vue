@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <el-header style="height: 10%">
-      <el-button size="mini" type="button" icon="el-icon-plus" @click="AdddialogVisible = true" circle/>
+      <el-button size="mini" type="button" icon="el-icon-plus" @click="addEvent();AdddialogVisible = true" circle/>
       <div style="margin-top: 15px;">
         <el-input placeholder="请输入内容" v-model="search" class="input-with-select" clearable>
           <el-select v-model="select" slot="prepend" placeholder="请选择">
@@ -210,6 +210,11 @@
               <el-input v-model="form.workplace"/>
             </el-form-item>
           </el-col>
+          <el-col :xs="4" :md="10" :lg="12">
+            <el-form-item label="批次" prop="group">
+              <el-input v-model="form.group"/>
+            </el-form-item>
+          </el-col>
         </el-row>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -342,6 +347,18 @@
               <el-input v-model="editForm.workplace"/>
             </el-form-item>
           </el-col>
+          <el-col :xs="4" :md="10" :lg="12">
+            <el-form-item label="批次" prop="group">
+              <el-select v-model="form.group" placeholder="请选择">
+                <el-option
+                  v-for="(item,index) in options"
+                  :key="index"
+                  :label="item.name"
+                  :value="item.uuid">
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
         </el-row>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -384,7 +401,8 @@ export default {
         sqrd_time: '',
         jjfz_time: '',
         fzdx_time: '',
-        rd_time: ''
+        rd_time: '',
+        group: ''
       },
       tableData: null,
       addRules: {
@@ -590,6 +608,9 @@ export default {
     }
   },
   methods: {
+    // 新增前查询批次信息
+    addEvent () {
+    },
     // 搜索
     searchStudent (select, search) {
       this.$http('post', '/api/search', {
