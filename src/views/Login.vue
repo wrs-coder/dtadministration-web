@@ -16,7 +16,7 @@
                   </label>
                 </span>
                 <span class="input input--hoshi">
-                  <input class="input__field input__field--hoshi" type="text" v-model="form.password"
+                  <input class="input__field input__field--hoshi" type="password" v-model="form.password"
                          placeholder="Password"/>
                   <label class="input__label input__label--hoshi input__label--hoshi-color-1">
                     <span class="input__label-content input__label-content--hoshi"></span>
@@ -55,7 +55,7 @@ export default {
           window.sessionStorage.setItem('Authorization', response.token)
           this.$router.push({ path: '/HelloPage' })
         } else {
-          this.errorText = 'Incorrect username or password!'
+          this.errorText = '用户名或密码错误!'
         }
       })
     }
