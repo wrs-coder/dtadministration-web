@@ -212,13 +212,12 @@ export default {
           }
         }
       })
-      const insertList = {
+      this.$http('post', '/api/insertActivity', {
         name: this.form.name,
         startTime: this.form.startTime,
         endTime: this.form.endTime,
         member: this.form.member
-      }
-      this.$http('post', '/api/insertActivity', { insertList: insertList }).then(() => {
+      }).then(() => {
         this.$http('post', '/api/query', { tableName: 'DT_activity' }).then(response => {
           this.$message({
             message: '新增成功',
