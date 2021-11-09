@@ -14,10 +14,9 @@
             </el-button>
             <el-dialog title="详情" :visible.sync="dialogTableVisible">
               <el-table :data="gridData">
-                <el-table-column property="name" label="活动名称" width="150"></el-table-column>
-                <el-table-column property="startTime" label="开始时间" width="150"></el-table-column>
-                <el-table-column property="endTime" label="结束时间" width="150"></el-table-column>
-                <el-table-column property="member" label="参与人员"></el-table-column>
+                <el-table-column property="name" label="姓名" width="150"></el-table-column>
+                <el-table-column property="type" label="类别" width="150"></el-table-column>
+                <el-table-column property="sno" label="学号"></el-table-column>
               </el-table>
             </el-dialog>
           </template>
