@@ -16,7 +16,8 @@
               <el-table :data="gridData">
                 <el-table-column property="name" label="姓名" width="150"></el-table-column>
                 <el-table-column property="type" label="类别" width="150"></el-table-column>
-                <el-table-column property="sno" label="学号"></el-table-column>
+                <el-table-column property="sno" label="学号" width="150"></el-table-column>
+                <el-table-column property="class" label="班级"></el-table-column>
               </el-table>
             </el-dialog>
           </template>
