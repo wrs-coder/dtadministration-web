@@ -56,6 +56,8 @@ export default {
           this.$router.push({ path: '/HelloPage' })
         } else {
           this.errorText = '用户名或密码错误!'
+          this.form.username = ''
+          this.form.password = ''
         }
       })
     }

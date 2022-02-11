@@ -197,9 +197,9 @@ export default {
     showMessage (index, row) {
       const queryList = {
         name: row.name,
-        tableName: 'DT_activity'
+        tableName: 'DT_member'
       }
-      this.$http('post', '/api/StudentQuery', { queryList: queryList }).then(response => {
+      this.$http('post', '/api/queryPeople', { queryList: queryList }).then(response => {
         this.gridData = response
       })
     },
