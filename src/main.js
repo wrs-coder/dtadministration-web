@@ -4,9 +4,11 @@ import router from './router'
 import './plugins/element.js'
 import '../src/assets/style/reset.css'
 import AppMain from '@/components/AppMain'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
 
 Vue.component('AppMain', AppMain)
-
+Vue.use(ElementUI)
 Vue.config.productionTip = false
 const axios = require('axios')
 axios.defaults.crossDomain = true

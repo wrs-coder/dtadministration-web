@@ -49,14 +49,14 @@ const router = new VueRouter({
 })
 
 // 挂载路由导航守卫
-router.beforeEach((to, from, next) => {
-  // 若访问登录页，则放行
-  if (to.path === '/') return next()
-  // 获取存在sessionStorage中的token
-  const tokenStr = window.sessionStorage.getItem('Authorization')
-  // 若没有token, 强制跳转到登录页
-  if (!tokenStr) return next('/')
-  next()
-})
+// router.beforeEach((to, from, next) => {
+//   // 若访问登录页，则放行
+//   if (to.path === '/') return next()
+//   // 获取存在sessionStorage中的token
+//   const tokenStr = window.sessionStorage.getItem('Authorization')
+//   // 若没有token, 强制跳转到登录页
+//   if (!tokenStr) return next('/')
+//   next()
+// })
 
 export default router
