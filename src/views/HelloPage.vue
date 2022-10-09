@@ -7,7 +7,7 @@
       <el-row :gutter="2">
         <el-col :xs="2" :md="4" :lg="6">
           <div class="circleBox">
-            <el-progress type="circle" :percentage="a"></el-progress>
+            <el-progress type="circle" :percentage="a" :color="colors"></el-progress>
           </div>
           <div class="circleBoxTitle">
             <span>入党积极分子占比</span>
@@ -15,7 +15,7 @@
         </el-col>
         <el-col :xs="2" :md="4" :lg="6">
           <div class="circleBox">
-            <el-progress type="circle" :percentage="b"></el-progress>
+            <el-progress type="circle" :percentage="b" :color="colors"></el-progress>
           </div>
           <div class="circleBoxTitle">
             <span>发展对象占比</span>
@@ -23,15 +23,15 @@
         </el-col>
         <el-col :xs="2" :md="4" :lg="6">
           <div class="circleBox">
-            <el-progress type="circle" :percentage="c"></el-progress>
+            <el-progress type="circle" :percentage="c" :color="colors"></el-progress>
           </div>
           <div class="circleBoxTitle">
-            <span>预备党员占比</span>
+            <span>中共预备党员占比</span>
           </div>
         </el-col>
         <el-col :xs="2" :md="4" :lg="6">
           <div class="circleBox">
-            <el-progress type="circle" :percentage="d"></el-progress>
+            <el-progress type="circle" :percentage="d" :color="colors"></el-progress>
           </div>
           <div class="circleBoxTitle">
             <span>党员占比</span>
@@ -62,7 +62,14 @@ export default {
       a: 0,
       b: 0,
       c: 0,
-      d: 0
+      d: 0,
+      colors: [
+        { color: '#f56c6c', percentage: 20 },
+        { color: '#e6a23c', percentage: 40 },
+        { color: '#5cb87a', percentage: 60 },
+        { color: '#1989fa', percentage: 80 },
+        { color: '#6f7ad3', percentage: 100 }
+      ]
     }
   }
 }

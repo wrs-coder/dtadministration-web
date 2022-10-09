@@ -5,19 +5,19 @@
     </el-header>
     <el-main>
       <el-table :data="tableData" style="width: 100%">
-        <el-table-column prop="name" label="活动名称" width="180" align="center"/>
+        <el-table-column prop="activity_name" label="活动名称" width="180" align="center"/>
         <el-table-column prop="startTime" label="开始时间" width="180" align="center"/>
         <el-table-column prop="endTime" label="结束时间" width="180" align="center"/>
         <el-table-column label="详情" width="180">
           <template slot-scope="scope">
             <el-button type="text" @click="showMessage(scope.$index, scope.row);dialogTableVisible = true">详情
             </el-button>
-            <el-dialog title="详情" :visible.sync="dialogTableVisible">
-              <el-table :data="gridData">
-                <el-table-column property="name" label="姓名" width="150"></el-table-column>
-                <el-table-column property="type" label="类别" width="150"></el-table-column>
-                <el-table-column property="sno" label="学号" width="150"></el-table-column>
-                <el-table-column property="class" label="班级"></el-table-column>
+            <el-dialog title="活动参与人员" :visible.sync="dialogTableVisible">
+              <el-table :data="gridData" center>
+                <el-table-column property="uuid" label="学号" width="100" align="center"></el-table-column>
+                <el-table-column property="name" label="姓名" width="100" align="center"></el-table-column>
+                <el-table-column property="type" label="类别" width="120" align="center"></el-table-column>
+                <el-table-column property="workplace" label="工作单位及职务" align="center"></el-table-column>
               </el-table>
             </el-dialog>
           </template>
@@ -35,8 +35,8 @@
     <!--新增表单-->
     <el-dialog title="新增活动信息" :visible.sync="AdddialogVisible" width="30%">
       <el-form :rules="addRules" ref="form" :model="form" label-width="80px">
-        <el-form-item label="活动名称" prop="name">
-          <el-input v-model="form.name"/>
+        <el-form-item label="活动名称" prop="activity_name">
+          <el-input v-model="form.activity_name"/>
         </el-form-item>
         <el-form-item label="活动时间" required>
           <el-col :span="11">
@@ -73,7 +73,7 @@
     <el-dialog title="修改活动信息" :visible.sync="EditdialogVisible" width="30%">
       <el-form :rules="editRules" ref="editForm" :model="editForm" label-width="80px">
         <el-form-item label="活动名称" prop="name">
-          <el-input v-model="editForm.name"/>
+          <el-input v-model="editForm.activity_name"/>
         </el-form-item>
         <el-form-item label="活动时间" required>
           <el-col :span="11">
@@ -91,7 +91,14 @@
           </el-col>
         </el-form-item>
         <el-form-item label="参与人员" prop="member">
-          <el-input v-model="editForm.member" oninput="value=value.replace(/[^\d]/g,'')"/>
+          <el-select v-model="editForm.member" multiple placeholder="请选择">
+            <el-option
+              v-for="(item,index) in options1"
+              :key="index"
+              :label="item.name"
+              :value="item.uuid">
+            </el-option>
+          </el-select>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -109,6 +116,9 @@ export default {
     this.$http('post', '/api/query', { tableName: 'DT_activity' }).then(response => {
       this.tableData = response
     })
+    this.$http('post', '/api/query', { tableName: 'DT_people' }).then(response => {
+      this.options1 = response
+    })
   },
   data () {
     return {
@@ -116,16 +126,17 @@ export default {
       EditdialogVisible: false,
       dialogTableVisible: false,
       options: {},
+      options1: {},
       editForm: {},
       form: {
-        name: '',
+        activity_name: '',
         startTime: '',
         endTime: ''
       },
       tableData: null,
       gridData: null,
       addRules: {
-        name: [
+        activity_name: [
           {
             required: true,
             message: '请输入活动名称',
@@ -196,11 +207,21 @@ export default {
     // 展示活动详情
     showMessage (index, row) {
       const queryList = {
-        name: row.name,
-        tableName: 'DT_member'
+        name: row.activity_name,
+        tableName: 'DT_activity'
       }
       this.$http('post', '/api/queryPeople', { queryList: queryList }).then(response => {
-        this.gridData = response
+        const stuList = {
+          name: response[0].member.split(','),
+          tableName: 'DT_people'
+        }
+        this.$http('post', 'api/QueryData', { querystuList: stuList }).then(response => {
+          const list = []
+          for (let i = 0; i < response.length; i++) {
+            list.push(response[i][0])
+          }
+          this.gridData = list
+        })
       })
     },
     // 新增活动
@@ -213,7 +234,7 @@ export default {
         }
       })
       this.$http('post', '/api/insertActivity', {
-        name: this.form.name,
+        activity_name: this.form.activity_name,
         startTime: this.form.startTime,
         endTime: this.form.endTime,
         member: this.form.member
@@ -236,7 +257,7 @@ export default {
         type: 'warning'
       }).then(() => {
         const queryList = {
-          name: row.name,
+          name: row.activity_name,
           tableName: 'DT_activity'
         }
         this.$http('post', 'api/StudentQuery', { queryList: queryList }).then(response => {
@@ -269,22 +290,32 @@ export default {
     // 修改前查询活动信息
     handleEdit (index, row) {
       const queryList = {
-        name: row.name,
+        name: row.activity_name,
         tableName: 'DT_activity'
       }
       this.$http('post', '/api/StudentQuery', { queryList: queryList }).then(response => {
         this.editForm = response[0]
+        const querystuList = {
+          name: response[0].member.split(','),
+          tableName: 'DT_people'
+        }
+        this.$http('post', '/api/QueryData', { querystuList }).then(response => {
+          const list = []
+          for (let i = 0; i < response.length; i++) {
+            list.push(response[i][0].uuid)
+          }
+          this.editForm.member = list
+        })
       })
     },
     // 提交
     editStudent () {
+      this.editForm.member = this.editForm.member.join(',')
+      console.log(this.editForm)
       this.$http('post', '/api/updateActivity', this.editForm).then(response => {
-        this.$http('post', '/api/query', { tableName: 'DT_activity' }).then(response => {
-          this.$message({
-            message: '修改成功',
-            type: 'success'
-          })
-          this.tableData = response
+        this.$message({
+          message: '修改成功',
+          type: 'success'
         })
       })
     }

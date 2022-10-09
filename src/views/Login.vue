@@ -10,21 +10,21 @@
               <div class="form-group">
                 <span class="input input--hoshi">
                   <input class="input__field input__field--hoshi" type="text" v-model="form.username"
-                         placeholder="Username"/>
+                         placeholder="请输入用户名"/>
                   <label class="input__label input__label--hoshi input__label--hoshi-color-1">
                     <span class="input__label-content input__label-content--hoshi"></span>
                   </label>
                 </span>
                 <span class="input input--hoshi">
                   <input class="input__field input__field--hoshi" type="password" v-model="form.password"
-                         placeholder="Password"/>
+                         placeholder="请输入密码"/>
                   <label class="input__label input__label--hoshi input__label--hoshi-color-1">
                     <span class="input__label-content input__label-content--hoshi"></span>
                   </label>
                 </span>
                 <p v-if="errorText" class="text-danger">{{ errorText }} </p>
               </div>
-              <button class="btnSubmit" @click.prevent="login()">Log In</button>
+              <button class="btnSubmit" @click.prevent="login()">登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录</button>
             </form>
           </div>
         </div>
