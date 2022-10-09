@@ -311,7 +311,6 @@ export default {
     // 提交
     editStudent () {
       this.editForm.member = this.editForm.member.join(',')
-      console.log(this.editForm)
       this.$http('post', '/api/updateActivity', this.editForm).then(response => {
         this.$message({
           message: '修改成功',
