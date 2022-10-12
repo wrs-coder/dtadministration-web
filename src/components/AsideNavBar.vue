@@ -32,9 +32,9 @@ export default {
           icon: 'el-icon-s-flag'
         },
         {
-          name: '批次管理',
-          path: '/Group',
-          icon: 'el-icon-suitcase'
+          name: '青年大学习',
+          path: '/Study',
+          icon: 'el-icon-reading'
         }]
     }
   }

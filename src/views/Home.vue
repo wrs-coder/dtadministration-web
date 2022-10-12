@@ -4,7 +4,7 @@
       <TopNavBar/>
     </el-header>
     <el-container>
-      <el-aside width="160px">
+      <el-aside width="150px">
         <AsideNavBar/>
       </el-aside>
       <el-container>
@@ -32,7 +32,10 @@ export default {
 </script>
 
 <style scoped>
-el-header {
-  padding: 0;
+.el-menu{
+  border-bottom: solid 1px #e6e6e6;
+}
+.el-main{
+  height: 100%;
 }
 </style>

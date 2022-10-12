@@ -36,7 +36,7 @@
     <el-dialog title="新增活动信息" :visible.sync="AdddialogVisible" width="30%">
       <el-form :rules="addRules" ref="form" :model="form" label-width="80px">
         <el-form-item label="活动名称" prop="activity_name">
-          <el-input v-model="form.activity_name"/>
+          <el-input v-model="form.activity_name" clearable/>
         </el-form-item>
         <el-form-item label="活动时间" required>
           <el-col :span="11">
@@ -73,7 +73,7 @@
     <el-dialog title="修改活动信息" :visible.sync="EditdialogVisible" width="30%">
       <el-form :rules="editRules" ref="editForm" :model="editForm" label-width="80px">
         <el-form-item label="活动名称" prop="name">
-          <el-input v-model="editForm.activity_name"/>
+          <el-input v-model="editForm.activity_name" clearable/>
         </el-form-item>
         <el-form-item label="活动时间" required>
           <el-col :span="11">
@@ -312,10 +312,20 @@ export default {
     editStudent () {
       this.editForm.member = this.editForm.member.join(',')
       this.$http('post', '/api/updateActivity', this.editForm).then(response => {
-        this.$message({
-          message: '修改成功',
-          type: 'success'
-        })
+        if (response === 200) {
+          this.$message({
+            message: '修改成功',
+            type: 'success'
+          })
+          this.$http('post', '/api/query', { tableName: 'DT_activity' }).then(response => {
+            this.tableData = response
+          })
+        } else {
+          this.$message({
+            message: '修改失败',
+            type: 'error'
+          })
+        }
       })
     }
   }
