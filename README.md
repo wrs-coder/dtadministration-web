@@ -1,4 +1,4 @@
-# vue-test
+# 基于Vue 2.X + ElementUI的党团管理系统前端
 
 ## Project setup
 ```
